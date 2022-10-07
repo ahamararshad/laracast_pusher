@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Events\OrderStatusUpdate;
 use App\Events\TaskCreated;
+use App\Models\Project;
 use App\Models\Task;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +23,23 @@ Route::get('/', function () {
 
 Route::get('/update', function () {
     OrderStatusUpdate::dispatch();
+});
+
+Route::get('/projects/{project}', function (Project $project) {
+    $project->load('tasks');
+    return view('projects.show', compact('project'));
+});
+
+Route::get('/api/projects/{project}', function (Project $project) {
+    return $project->tasks->pluck('body');
+});
+
+Route::post('/api/projects/{project}/tasks', function (Project $project) {
+    $task = $project->tasks()->create(request(['body']));
+    event(
+        (new TaskCreated($task))->dontBroadcastToCurrentUser()
+    );
+    return $task;
 });
 
 Route::get('/tasks', function () {
