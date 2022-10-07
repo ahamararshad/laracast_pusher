@@ -16,7 +16,9 @@ import { createApp } from 'vue';
 const app = createApp({});
 
 import ExampleComponent from './components/ExampleComponent.vue';
+import TaskList from "./components/TaskList.vue";
 app.component('example-component', ExampleComponent);
+app.component('task-list', TaskList);
 
 /**
  * The following block of code may be used to automatically register your

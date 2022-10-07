@@ -15,6 +15,7 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <task-list></task-list>
                 </div>
             </div>
         </div>

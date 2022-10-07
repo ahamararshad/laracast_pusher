@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Events\OrderStatusUpdate;
+use App\Events\TaskCreated;
+use App\Models\Task;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +20,19 @@ Route::get('/', function () {
 });
 
 Route::get('/update', function () {
-    \App\Events\OrderStatusUpdate::dispatch();
+    OrderStatusUpdate::dispatch();
+});
+
+Route::get('/tasks', function () {
+    return Task::latest()->pluck('body');
+});
+
+Route::post('/tasks', function () {
+
+    $task = Task::forceCreate(request(['body']));
+    event(
+        (new TaskCreated($task))->dontBroadcastToCurrentUser()
+    );
 });
 
 Auth::routes();
