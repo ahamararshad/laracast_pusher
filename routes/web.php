@@ -14,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    \App\Events\OrderStatusUpdate::dispatch();
     return view('welcome');
+});
+
+Route::get('/update', function () {
+    \App\Events\OrderStatusUpdate::dispatch();
 });
 
 Auth::routes();

@@ -36,4 +36,9 @@ class OrderStatusUpdate implements ShouldBroadcastNow
         return new Channel('orders');
 //        return new PrivateChannel('channel-name');
     }
+
+//    public function broadcastAs()
+//    {
+//        return 'order-status-update';
+//    }
 }
