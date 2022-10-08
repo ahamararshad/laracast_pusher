@@ -34,8 +34,18 @@ class TaskCreated implements ShouldBroadcast
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
+//    public function broadcastOn()
+//    {
+//        return new PrivateChannel('tasks.' . $this->task->project_id);
+//    }
+
     public function broadcastOn()
     {
         return new Channel('tasks.' . $this->task->project_id);
+    }
+
+    public function broadcastAs()
+    {
+        return 'task-created';
     }
 }

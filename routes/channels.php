@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('tasks.{projectId}', function ($user, $projectId) {
+    dd($user);
+    return \Illuminate\Support\Facades\Auth::check();
+    return (int) $user->id === (int) $projectId;
 });
